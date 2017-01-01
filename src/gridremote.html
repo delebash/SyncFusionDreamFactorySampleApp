@@ -1,0 +1,31 @@
+<!--<template>-->
+  <!--<div>-->
+    <!--<ej-grid e-data-source.bind="OrdersList" e-page-settings.bind="page" e-allow-paging=true>-->
+      <!--<ej-column e-field="OrderID" e-header-text="Order ID" e-text-align="right" e-width="75"></ej-column>-->
+      <!--<ej-column e-field="CustomerID" e-header-text="Customer ID" e-width="90"></ej-column>-->
+      <!--<ej-column e-field="EmployeeID" e-header-text="Employee ID" e-text-align="right" e-width="90"></ej-column>-->
+      <!--<ej-column e-field="Freight" e-header-text="Freight" e-format="{0:C2}" e-text-align="right" e-width="75"></ej-column>-->
+      <!--<ej-column e-field="ShipCountry" e-header-text="Ship Country" e-width="100"></ej-column>-->
+    <!--</ej-grid>-->
+  <!--</div>-->
+<!--</template>-->
+
+<!--<template>-->
+  <!--<div>-->
+    <!--<ej-grid e-data-source.bind="CustomerList" e-page-settings.bind="page" e-allow-paging=true>-->
+      <!--<ej-column e-field="company" e-header-text="company" e-text-align="right" e-width="75"></ej-column>-->
+      <!--<ej-column e-field="last_name" e-header-text="last_name" e-width="90"></ej-column>-->
+      <!--<ej-column e-field="first_name" e-header-text="first_name" e-text-align="right" e-width="90"></ej-column>-->
+    <!--</ej-grid>-->
+  <!--</div>-->
+<!--</template>-->
+
+<template>
+  <div>
+    <ej-grid e-data-source.bind="OrdersList" e-allow-paging=true e-allow-sorting=true>
+      <ej-column e-field="CustomerID" e-header-text="Customer ID"></ej-column>
+      <ej-column e-field="EmployeeID" e-header-text="Employee ID" e-text-align="right"></ej-column>
+      <ej-column e-field="OrderDate" e-header-text="Order Date" e-format="{0:MM/dd/yyyy}" e-text-align="right"></ej-column>
+    </ej-grid>
+  </div>
+</template>
