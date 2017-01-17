@@ -2,7 +2,7 @@ import {inject} from 'aurelia-framework'
 import {DreamFactoryApi} from './dreamfactory-api'
 
 @inject(DreamFactoryApi)
-export class TestConnection {
+export class DreamFactoryTestConnection {
   constructor(dfapi) {
     this.dfapi = dfapi;
     this.username = null;

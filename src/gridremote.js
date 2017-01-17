@@ -1,7 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {DreamFactoryApi} from './dreamfactory-api'
 import {syncDfAdaptor} from './syncfusionDreamFactoryAdapter';
-import {Utils} from './utils.js';
+import {Utils} from './utils';
 import  dreamfactoryconfig from './dreamfactoryconfig'
 
 @inject(DreamFactoryApi)

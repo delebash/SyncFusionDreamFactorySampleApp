@@ -1,6 +1,6 @@
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {inject} from 'aurelia-framework';
-import {Utils} from './utils.js';
+import {Utils} from './utils';
 import  dreamfactoryconfig from './dreamfactoryconfig'
 
 
