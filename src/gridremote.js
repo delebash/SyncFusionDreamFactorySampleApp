@@ -1,25 +1,32 @@
 import {inject} from 'aurelia-framework';
 import {DreamFactoryApi} from './dreamfactory-api'
 import {syncDfAdaptor} from './syncfusionDreamFactoryAdapter';
+import {Utils} from './utils.js';
+import  dreamfactoryconfig from './dreamfactoryconfig'
 
 @inject(DreamFactoryApi)
 export class GridRemote {
   constructor(dfapi) {
     this.dfapi = dfapi;
+    this.login();
+  }
+
+  login() {
     this.dfapi.login().then(response => {
       if (response.session_id) {
         //We are logged in
-        console.log(data)
+        console.log(response)
         this.getdata()
       }
     })
   }
 
   //Use custom adapter to retrieve data from api and bind to syncfusion grid
-
   //The problem is I am not able to import and use the custom adapter like I use it in ES5
+
   getdata() {
     let token = Utils.getToken(dreamfactoryconfig.tokenKey);
+
     CustomerList = ej.DataManager({
       url: dreamfactoryconfig.dataurl,
       adaptor: new syncDfAdaptor,
