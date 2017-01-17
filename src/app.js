@@ -3,12 +3,10 @@ export class App {
     config.title = 'Aurelia';
     config.map([
       { route: ['', 'welcome'], name: 'welcome',      moduleId: 'welcome',      nav: true, title: 'Welcome' },
-      { route: 'users',         name: 'users',        moduleId: 'users',        nav: true, title: 'Github Users' },
-      { route: 'grid',         name: 'grid',        moduleId: 'grid',        nav: true, title: 'Grid' },
-      { route: 'dreamfactorytester', name: 'dreamfactorytester', moduleId: 'dreamfactorytester', nav: true, title: 'Dream Factory Tester' },
-      { route: 'child-router',  name: 'child-router', moduleId: 'child-router', nav: true, title: 'Child Router' }
-    ]);
-
+      { route: 'gridlocal',         name: 'gridlocal',        moduleId: 'gridlocal',        nav: true, title: 'Grid Local' },
+      { route: 'gridremote',         name: 'gridremote',        moduleId: 'gridremote',        nav: true, title: 'Grid Remote' },
+      { route: 'testconnection', name: 'testconnection', moduleId: 'testconnection', nav: true, title: 'Test Database Connection' }
+      ]);
     this.router = router;
   }
 }
