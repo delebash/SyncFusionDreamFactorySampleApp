@@ -9,8 +9,9 @@ export class TestConnection {
     this.gotdata = null;
 
     this.dfapi.login().then(response => {
-      this.username = response.name
-      if (this.username != null) {
+      if (response.session_id) {
+        this.username = response.name;
+
         this.dfapi.getdata().then(response => {
           if (response.resource.length > 0) {
             this.gotdata = true
@@ -19,6 +20,7 @@ export class TestConnection {
       }
     })
   }
+
 }
 // load(){
 //   this.dfapi.login().then(response => {

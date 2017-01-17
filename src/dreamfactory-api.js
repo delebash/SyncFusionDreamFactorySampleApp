@@ -33,6 +33,7 @@ export class DreamFactoryApi {
 
   getdata() {
     let token = Utils.getToken(dreamfactoryconfig.tokenKey);
+
     return this.http.fetch(dreamfactoryconfig.dataurl(), {
       method: "POST",
       body: json(dreamfactoryconfig.credentials()),

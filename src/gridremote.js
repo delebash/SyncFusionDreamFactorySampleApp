@@ -1,102 +1,48 @@
-// export class GridRemote {
-//   constructor() {
-//     this.OrdersList =  ej.DataManager({ // eslint-disable-line new-cap
-//       url: 'http://mvc.syncfusion.com/Services/Northwnd.svc/Orders/'
-//     });
-//   }
-// }
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {Utils} from './utils.js';
-import  dreamfactoryconfig from './dreamfactoryconfig'
 import {inject} from 'aurelia-framework';
-import {sfadaptor} from './syncfusionDreamFactoryAdapter';
+import {DreamFactoryApi} from './dreamfactory-api'
+import {syncDfAdaptor} from './syncfusionDreamFactoryAdapter';
 
-let httpClient = new HttpClient();
-httpClient.configure(config => {
-  config
-    .useStandardConfiguration()
-});
-
-@inject(HttpClient)
-
+@inject(DreamFactoryApi)
 export class GridRemote {
-  constructor(http) {
-    this.http = http;
-
-    }
-  created() {
-   this.login()
-  }
-  login() {
-    let that =this;
-    this.http.fetch(dreamfactoryconfig.loginurl(), {
-      method: "POST",
-      body: json(dreamfactoryconfig.credentials())
+  constructor(dfapi) {
+    this.dfapi = dfapi;
+    this.dfapi.login().then(response => {
+      if (response.session_id) {
+        //We are logged in
+        console.log(data)
+        this.getdata()
+      }
     })
-      .then(response => response.json())
-      .then(data => {
-        if(data.hasOwnProperty('session_token')) {
-          Utils.setToken(dreamfactoryconfig.tokenKey, data.session_token);
-          console.log(data);
-          that.getdata();
-        }
-      });
   }
 
+  //Use custom adapter to retrieve data from api and bind to syncfusion grid
+
+  //The problem is I am not able to import and use the custom adapter like I use it in ES5
   getdata() {
-let adaptor =  new sfadaptor();
-
-    this.OrdersList =  ej.DataManager({ // eslint-disable-line new-cap
+    let token = Utils.getToken(dreamfactoryconfig.tokenKey);
+    CustomerList = ej.DataManager({
       url: dreamfactoryconfig.dataurl,
-        adaptor: adaptor.getadaptor(),
+      adaptor: new syncDfAdaptor,
+      headers: [{"X-DreamFactory-API-Key": dreamfactoryconfig.APP_API_KEY, "X-DreamFactory-Session-Token": token}]
     });
-console.log('test');
-    // this.OrdersList = ej.DataManager(window.gridData).executeLocal(ej.Query().take(8)); // eslint-disable-line new-cap
-    // this.page = { pageSize: 4};
-
-  // let token = Utils.getToken(dreamfactoryconfig.tokenKey);
-  //
-  // // let syncfusionDreamFactoryAdapter = sfdataadapter.getadapter();
-  // //   let te = sfdataadapter.test();
-  // CustomerList = ej.DataManager({
-  //   url: dreamfactoryconfig.dataurl,
-  //   adaptor: new test,
-  //   headers: [{"X-DreamFactory-API-Key": dreamfactoryconfig.APP_API_KEY, "X-DreamFactory-Session-Token": token}]
-  // });
-  //
-   }
+  }
 }
 
-// export class GridRemote {
-//   constructor() {
-//     let that =this;
-//     }
-//   created(){
-//     that.getdata();
-//   }
-// getdata(){
-//   let token = Utils.getToken(dreamfactoryconfig.tokenKey);
-//   let syncfusionDreamFactoryAdapter = sfdataadapter.getadapter();
-//   CustomerList = ej.DataManager({
-//     url: dreamfactoryconfig.dataurl,
-//     adaptor: new syncfusionDreamFactoryAdapter,
-//     headers: [{"X-DreamFactory-API-Key": dreamfactoryconfig.APP_API_KEY, "X-DreamFactory-Session-Token": token}]
-//   });
-// }
+
+//We could just use the standard  method without the aurlia syncfusion bridge
+//Either way we still need to import the custom adapter and use it in the datamanager
+
+// $("#Grid").ejGrid({
+//   dataSource: dataManager,
+//   allowPaging: true,
+//   allowSorting: true,
+//   allowFiltering: true,
+//   filterSettings: {showPredicate: true, filterType: "menu", enableCaseSensitivity: true},
+//   searchSettings: {ignoreCase: false},
+//   // filterSettings: { filterType: "menu" },
 //
-//   login(){
-//     let that =this;
-//     this.http.fetch(dreamfactoryconfig.loginurl(), {
-//       method: "POST",
-//       body: json(dreamfactoryconfig.credentials())
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         if(data.hasOwnProperty('session_token')) {
-//           Utils.setToken(dreamfactoryconfig.tokenKey, data.session_token);
-//           console.log(data);
-//           that.getdata();
-//         }
-//       });
-//   }
-// }
+//   columns: [
+//     {field: "first_name", headerText: "First Nmae"},
+//     {field: "last_name", headerText: "Last Name"}
+//   ]
+// });
