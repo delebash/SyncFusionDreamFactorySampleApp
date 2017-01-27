@@ -1,6 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {DreamFactoryApi} from './dreamfactory-api'
-import {syncDfAdaptor} from './syncfusionDreamFactoryAdapter';
+import {DreamFactoryAdapter} from './syncfusionDreamFactoryAdapter';
 import {Utils} from './utils';
 import  dreamfactoryconfig from './dreamfactoryconfig'
 
@@ -9,6 +9,7 @@ export class GridRemote {
   constructor(dfapi) {
     this.dfapi = dfapi;
     this.login();
+	this.CustomerList;
   }
 
   login() {
@@ -27,9 +28,9 @@ export class GridRemote {
   getdata() {
     let token = Utils.getToken(dreamfactoryconfig.tokenKey);
 
-    CustomerList = ej.DataManager({
-      url: dreamfactoryconfig.dataurl,
-      adaptor: new syncDfAdaptor,
+    this.CustomerList = ej.DataManager({
+      url: "https://api.ageektech.com/api/v2/northwind/_table/customers",
+      adaptor: new DreamFactoryAdapter.syncfusionDreamFactoryAdapter,
       headers: [{"X-DreamFactory-API-Key": dreamfactoryconfig.APP_API_KEY, "X-DreamFactory-Session-Token": token}]
     });
   }
